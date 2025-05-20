@@ -4,44 +4,141 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Currículo | Carlos Rodrigues</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
   <link rel="stylesheet" href="css/curriculo.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
-  <header>
-    <h1>Carlos Rodrigues</h1>
-    <p>Editor de Vídeo | Especialista em Premiere & After Effects</p>
-  </header>
+<style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top glass-navbar">
+    <a class="navbar-brand ml-3" href="index.html">Portfólio</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end mr-3" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="#sobre">Sobre</a></li>
+        <li class="nav-item"><a class="nav-link" href="#projetos">Projetos</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html">Portfólio</a></li>
+      </ul>
+    </div>
+  </nav>
 
-  <main class="container">
-    <section class="card hidden">
-      <h2>Experiência Profissional</h2>
-      <p><strong>Freelancer (2017 - hoje):</strong> edição de vídeos comerciais, clipes, reels, institucionais, para diversos clientes.</p>
+    <section class="timeline-section">
+    <h2><i class="fa-solid fa-briefcase"></i> Minha Jornada</h2>
+    <div class="timeline">
+
+      <!-- Investmoney -->
+      <div class="timeline-item">
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
+          <h3>Investmoney PJ</h3>
+          <p><strong>Marketing e Social Media</strong> <small>(abr/2024 – atualmente)</small></p>
+          <p>Criação, captação e edição de vídeos com foco em redes sociais. Planejamento de tráfego orgânico e conteúdo estratégico.</p>
+        </div>
+      </div>
+
+      <!-- Atlética Octacore -->
+      <div class="timeline-item">
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
+          <h3>Atlética Octacore</h3>
+          <p><strong>Vice-presidente</strong> <small>(abr/2025 – atualmente)</small></p>
+          <p>Liderança institucional, gestão estratégica da comunidade acadêmica e inovação.</p>
+          <p><strong>Diretor de Eventos</strong> <small>(jan/2025 – abr/2025)</small></p>
+          <p>Execução de eventos estudantis, parcerias e patrocínios.</p>
+          <p><strong>Diretor de Propaganda</strong> <small>(jul/2024 – dez/2024)</small></p>
+          <p>Design gráfico, branding e redes sociais.</p>
+          <p><strong>Assessor de Propaganda</strong> <small>(jan/2024 – jul/2024)</small></p>
+          <p>Criação de conteúdo com foco em engajamento e imagem institucional.</p>
+        </div>
+      </div>
+
+      <!-- Freelancer -->
+      <div class="timeline-item">
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
+          <h3>Freelancer</h3>
+          <p><strong>Freelancer Audiovisual</strong> <small>(desde 2017)</small></p>
+          <p>Edição de vídeos comerciais, institucionais, reels e clipes. Especialista em Premiere Pro, After Effects e motion design.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+        <section class="card education-card">
+      <div class="education-content">
+        <h2><i class="fa-solid fa-graduation-cap education-icon"></i> Formação Acadêmica</h2>
+        <p><strong>Pontifícia Universidade Católica do Paraná (PUCPR)</strong></p>
+        <p>Bacharelado em Cibersegurança (cursando)</p>
+      </div>
     </section>
 
-    <section class="card hidden">
-      <h2>Formação Acadêmica</h2>
-      <p>PUCPR - Bacharelado em Cibersegurança (cursando)</p>
+    <section class="card">
+      <h2><i class="fa-solid fa-screwdriver-wrench"></i> Habilidades Técnicas</h2>
+
+      <div class="skill-bar">
+        <div class="label">Adobe Premiere Pro <span>80%</span></div>
+        <div class="progress"><div class="progress-fill" data-percent="80%"></div></div>
+      </div>
+
+      <div class="skill-bar">
+        <div class="label">Adobe After Effects <span>60%</span></div>
+        <div class="progress"><div class="progress-fill" data-percent="60%"></div></div>
+      </div>
+
+      <div class="skill-bar">
+        <div class="label">Photoshop / Illustrator <span>55%</span></div>
+        <div class="progress"><div class="progress-fill" data-percent="55%"></div></div>
+      </div>
+
+      <div class="skill-bar">
+        <div class="label">Motion Design e Animação <span>45%</span></div>
+        <div class="progress"><div class="progress-fill" data-percent="45%"></div></div>
+      </div>
     </section>
 
-    <section class="card hidden">
-      <h2>Habilidades Técnicas</h2>
-      <ul>
-        <li>Adobe Premiere Pro (avançado)</li>
-        <li>After Effects, Photoshop, Illustrator</li>
-        <li>Motion Design, correção de cor, legendagem</li>
+
+    <section class="card">
+      <h2><i class="fa-solid fa-award"></i> Reconhecimentos</h2>
+
+      <div class="award">
+        <strong>🏆 Melhor Montagem – Cine Marco Antônio (2019)</strong>
+        <p>Premiado em festival escolar de curtas pelo trabalho de edição em um talk show fictício, com destaque para narrativa fluida e ritmo de cortes.</p>
+      </div>
+
+      <div class="award">
+        <strong>📄 Certificado de Colaboração – CyberCon PUCPR (2023)</strong>
+        <p>Reconhecimento oficial do Centro Acadêmico de Cibersegurança pela criação dos materiais visuais da conferência, incluindo banners, certificados e identidade visual do evento.</p>
+      </div>
+
+      <div class="award">
+        <strong>🎁 Reconhecimento Criativo – Kit Condor (vídeo viral)</strong>
+        <p>Após viralização de vídeo no TikTok sobre um produto da Condor, a equipe de marketing enviou um kit exclusivo com panetones, bibliografia institucional e caneta Crown como agradecimento espontâneo.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2><i class="fa-solid fa-language"></i> Idiomas</h2>
+
+      <ul class="language-list">
+        <li><strong>Português:</strong> Nativo</li>
+        <li><strong>Inglês:</strong> Básico</li>
+        <li><strong>Espanhol:</strong> Básico</li>
       </ul>
     </section>
-
-    <section class="card hidden">
-      <h2>Idiomas</h2>
-      <p>Português (nativo), Inglês (intermediário)</p>
-    </section>
-  </main>
 
   <footer>
     <p><a href="#">Baixar currículo em PDF</a></p>
   </footer>
 
-  <script src="js/scrollReveal.js"></script>
+  <script src="js/curriculo.js"></script>
 </body>
 </html>
