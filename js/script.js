@@ -1,119 +1,141 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const allProjectsData = [
-    // Vídeos Premiere
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const stars = Array(100).fill().map(() => ({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  r: Math.random() * 1.5 + 0.5,
+  d: Math.random() * 1.5
+}));
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#fff';
+  stars.forEach(s => {
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fill();
+  });
+}
+
+function update() {
+  stars.forEach(s => {
+    s.y += s.d;
+    if (s.y > canvas.height) {
+      s.y = 0;
+      s.x = Math.random() * canvas.width;
+    }
+  });
+}
+
+function animate() {
+  draw();
+  update();
+  requestAnimationFrame(animate);
+}
+
+animate();
+const projects = [
+  //Premiere
     {
       category: 'premiere',
-      type: 'local',
+      type: 'video',
       src: 'midia/Projeto Premiere/carro.mp4',
       title: 'Vídeo automobilístico',
       desc: 'Vídeo cinematico automobilístico'
     },
     {
       category: 'premiere',
-      type: 'local',
+      type: 'video',
       src: 'midia/Projeto Premiere/moto.mp4',
       title: 'Clipe cinematográfico moto',
       desc: 'Vídeo cinemático motocicleta'
     },
-    {
-      category: 'premiere',
-      type: 'local',
-      src: 'midia/Projeto Premiere/calourada.mp4',
-      title: 'Calourada Octacore',
-      desc: 'Vídeo calourada Octacore 2024'
-    },
-    // Vídeo Instagram
-    {
-      category: 'premiere',
-      type: 'link',
-      src: 'https://www.instagram.com/reel/DJch33BRKMn/',
-      title: 'Plantão 190',
-      desc: 'Vídeo para divulgação da Investmoney'
-    },
-
     // Vídeos YouTube
     {
       category: 'premiere',
-      type: 'youtube',
+      type: 'video',
       src: 'https://www.youtube.com/embed/NhFd7FyaFMM',
       title: 'FUI NA BSG 2023 E FOI INSANO!',
       desc: 'Edição de vídeo canal Estafera'
     },
     {
       category: 'premiere',
-      type: 'youtube',
+      type: 'video',
       src: 'https://www.youtube.com/embed/W_fzAHkHG-M',
       title: 'REVIEW DT3 NERO - RECEBI MINHA NOVA CADEIRA GAMER!',
       desc: 'Edição de vídeo canal Estafera'
     },
     {
       category: 'premiere',
-      type: 'youtube',
+      type: 'video',
       src: 'https://www.youtube.com/embed/ZJ53jgDKg6M',
       title: 'DURO COMO PEDRA - O MELHOR BRIMSTONE QUE VOCÊ VAI VER HOJE',
       desc: 'Highlight canal Estafera '
     },
     {
       category: 'premiere',
-      type: 'youtube',
+      type: 'video',
       src: 'https://www.youtube.com/embed/VMxyt4D9UTs',
       title: 'Moonlight 🌑',
       desc: 'Highlight canal Carlospsita'
     },
     {
       category: 'premiere',
-      type: 'youtube',
+      type: 'video',
       src: 'https://www.youtube.com/embed/Hltn3sU8Cfc',
       title: '100 condições, COD.exe',
       desc: 'Highlight canal Carlospsita'
     },
     {
       category: 'premiere',
-      type: 'youtube',
+      type: 'video',
       src: 'https://www.youtube.com/embed/JLsjK4v4oiU',
       title: 'Hypnotic 😵',
       desc: 'Highlight canal Carlospsita'
     },
     {
       category: 'premiere',
-      type: 'youtube',
+      type: 'video',
       src: 'https://www.youtube.com/embed/tzMld5_sep0',
       title: 'Nego do caixão o melhor sniper do Brasil',
       desc: 'Highlight canal Carlospsita'
     },
 
-   // Vídeos After Effects
+    // Vídeos After Effects
 {
   category: 'aftereffects',
-  type: 'local',
+  type: 'animacao',
   src: 'midia/Projeto After Effects/Dog.mp4',
   title: 'Dog Animation',
   desc: 'Animação gráfica para site Vira-Latas'
 },
 {
   category: 'aftereffects',
-  type: 'local',
+  type: 'animacao',
   src: 'midia/Projeto After Effects/Intro chips ao shape.mp4',
   title: 'Intro Chips ao Shape',
   desc: 'Animação intro'
 },
 {
   category: 'aftereffects',
-  type: 'local',
+  type: 'animacao',
   src: 'midia/Projeto After Effects/Iphone.mp4',
   title: 'Animação Iphone',
   desc: 'Animação primeiro projeto no After Effects'
 },
 {
   category: 'aftereffects',
-  type: 'local',
+  type: 'animacao',
   src: 'midia/Projeto After Effects/Moonlight tipografia.mp4',
   title: 'Moonlight Tipografia',
   desc: 'Tipografia para intro'
 },
 {
   category: 'aftereffects',
-  type: 'local',
+  type: 'animacao',
   src: 'midia/Projeto After Effects/veteranos final.mp4',
   title: 'Bem-vindos Veteranos',
   desc: 'Animação de boas-vindas para Octacore'
@@ -194,132 +216,94 @@ document.addEventListener("DOMContentLoaded", () => {
 }
 ];
 
-  const container = document.getElementById('project-grid');
+function renderProjects(filter = "all") {
+  const grid = document.getElementById("projectGrid");
+  grid.innerHTML = "";
 
-  function renderAllProjects(category) {
-          container.innerHTML = '';
-      const filtered = category === 'all'
-        ? allProjectsData
-        : allProjectsData.filter(p => p.category === category);
+  projects.forEach((project) => {
+    if (filter === "all" || project.type === filter || project.category === filter) {
+      const card = document.createElement("div");
+      card.classList.add("project-card", project.type);
 
-      if (filtered.length === 0) {
-        container.innerHTML = "<p class='text-center text-muted'>Nenhum projeto encontrado para essa categoria.</p>";
-        return;
-      }
-  
-      filtered.forEach((proj, index) => {
-        const wrapper = document.createElement('div');
-        wrapper.className = 'project-item animated-content project-' + proj.category;
-        wrapper.setAttribute('data-index', index);
-      
-        let mediaHTML = '';
-        if (proj.type === 'youtube') {
-          mediaHTML = `
-            <iframe 
-              src="${proj.src}" 
-              frameborder="0" 
-              allow="autoplay; encrypted-media" 
-              allowfullscreen></iframe>
-          `;
-        } else if (proj.type === 'local') {
-          mediaHTML = `
-            <video src="${proj.src}" muted autoplay loop playsinline></video>`;              
-        } else if (proj.type === 'image') {
-          mediaHTML = `<img src="${proj.src}" alt="${proj.title}" />`;
-        } else if (proj.type === 'link') {
-        }
-
-        wrapper.innerHTML = `
-          <div class="video-wrapper">
-            ${mediaHTML}
-            <div class="project-overlay">
-              <strong>${proj.title}</strong><br>
-              <small>${proj.desc}</small>
-            </div>
-          </div>`;
-
-          wrapper.addEventListener("click", () => openLightbox(proj));
-        container.appendChild(wrapper);
-      });      
-  
-    animateOnScroll();
-  }
-  
-  function animateOnScroll() {
-    document.querySelectorAll(".animated-content").forEach(el => {
-      const pos = el.getBoundingClientRect().top;
-      const windowHeight = window.innerHeight;
-      if (pos < windowHeight * 0.85) {
-        el.classList.add("show");
-      }
-    });
-  }
-
-  document.querySelectorAll(".nav-link[data-category]").forEach(btn => {
-    btn.addEventListener("click", function (e) {
-      e.preventDefault();
-      document.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"));
-      this.classList.add("active");
-      const cat = this.getAttribute("data-category");
-      renderAllProjects(cat);
-    });
+if (project.type === 'video') {
+  const isYouTube = project.src.includes('youtube.com');
+  card.innerHTML = isYouTube
+    ? `
+      <iframe src="${project.src}" frameborder="0" allowfullscreen></iframe>
+      <h3>${project.title}</h3>
+      <p>${project.desc}</p>
+    `
+    : `
+      <video controls>
+        <source src="${project.src}" type="video/mp4">
+        Seu navegador não suporta vídeo.
+      </video>
+      <h3>${project.title}</h3>
+      <p>${project.desc}</p>
+    `;
+} else if (project.type === 'image') {
+  card.innerHTML = `
+    <img src="${project.src}" alt="${project.title}">
+    <h3>${project.title}</h3>
+    <p>${project.desc}</p>
+  `;
+} else if (project.type === 'animacao') {
+  card.innerHTML = `
+    <video controls>
+      <source src="${project.src}" type="video/mp4">
+      Seu navegador não suporta vídeo.
+    </video>
+    <h3>${project.title}</h3>
+    <p>${project.desc}</p>
+  `;
+}
+      grid.appendChild(card);
+    }
   });
-  document.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(el => {
-    el.setAttribute('tabindex', '-1');
-  });
+}
 
-  window.addEventListener("scroll", animateOnScroll);
-  renderAllProjects('all');
+renderProjects();
+
+document.querySelectorAll('.filter-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    const filter = button.getAttribute('data-filter');
+
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    button.classList.add('active');
+
+    renderProjects(filter);
+  });
+});  
+// Delegação para abrir imagem em modal (funciona com elementos criados dinamicamente)
+document.addEventListener('click', (e) => {
+  const img = e.target;
+  if (img.tagName === 'IMG' && img.closest('.project-card')) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    modal.style.display = "block";
+    modalImg.src = img.src;
+  }
 });
 
-function openLightbox(proj) {
-  let lightbox = document.getElementById("lightbox");
+document.querySelector('.close-modal').addEventListener('click', () => {
+  document.getElementById('imageModal').style.display = "none";
+});
 
-  if (!lightbox) {
-    lightbox = document.createElement("div");
-    lightbox.id = "lightbox";
-    lightbox.innerHTML = `
-      <button id="lightbox-close">← Voltar</button>
-      <div id="lightbox-content"></div>
-    `;
-    document.body.appendChild(lightbox);
+document.getElementById('imageModal').addEventListener('click', (e) => {
+  if (e.target.id === 'imageModal') {
+    e.currentTarget.style.display = "none";
   }
 
-  const content = document.getElementById("lightbox-content");
-  const closeBtn = document.getElementById("lightbox-close");
+});
 
-  if (proj.type === 'link') {
-    window.open(proj.src, '_blank');
-    return;
-  }
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', (e) => {
+    const targetId = link.getAttribute('href');
 
-  // Remove qualquer vídeo anterior
-  content.innerHTML = "";
-
-  // Aplica conteúdo
-  if (proj.type === 'youtube') {
-    content.innerHTML = `
-      <iframe 
-        src="${proj.src}?autoplay=1" 
-        frameborder="0" 
-        allow="autoplay; encrypted-media" 
-        allowfullscreen
-        style="width: 90vw; height: 80vh;"></iframe>`;
-  } else if (proj.type === 'local') {
-    content.innerHTML = `
-      <video src="${proj.src}" autoplay controls style="max-width: 100%; max-height: 80vh;"></video>`;
-  } else if (proj.type === 'image') {
-    content.innerHTML = `<img src="${proj.src}" alt="${proj.title}" style="max-width: 100%; max-height: 80vh;">`;
-  }
-
-  // Ativa lightbox
-  lightbox.classList.add("active");
-
-  // Evento para fechar
-  lightbox.onclick = (e) => {
-    if (e.target === lightbox || e.target === closeBtn) {
-      lightbox.classList.remove("active");
-      content.innerHTML = "";
+    if (targetId.startsWith('#')) {
+      e.preventDefault();
+      const section = document.querySelector(targetId);
+      if (section) section.scrollIntoView({ behavior: 'smooth' });
     }
-  };
-}
+  });
+});

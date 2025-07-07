@@ -2,73 +2,46 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Portfólio | Editor de Vídeo</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
-  <link href="css/style.css" rel="stylesheet"/>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Portfólio</title>
+  <link rel="stylesheet" href="./css/style.css" />
 </head>
-<body class="bg-dark">
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top glass-navbar">
-    <a class="navbar-brand ml-3" href="#">Portfólio</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-end mr-3" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item"><a class="nav-link" href="#sobre">Sobre</a></li>
-        <li class="nav-item"><a class="nav-link" href="#projetos">Projetos</a></li>
-        <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
-        <li class="nav-item"><a class="nav-link" href="curriculo.html">Currículo</a></li>
-      </ul>
-    </div>
+<body>
+  <canvas id="stars"></canvas>
+  
+<header class="header">
+  <nav class="nav">
+    <a href="#sobre" class="nav-link">Sobre</a>
+    <a href="#projetos" class="nav-link">Meus Projetos</a>
+    <a href="./curriculo.html" class="nav-link">Currículo</a>
   </nav>
+</header>
 
-  <header class="section text-center fade-in mt-5 pt-5">
-  <h1>Meu Currículo</h1>
-  <p class="lead">Uma trajetória construída com criatividade, técnica e paixão pelo audiovisual.</p>
-  </header>
+  <main class="main-content">
+    <h1 class="main-title">Projetos. Ideias. Impacto. Tudo aqui.</h1>
+    <p class="main-description">
+      Criando experiências incríveis com design, movimento e contraste.
+    </p>
+    <section class="portfolio-section">
 
-  <section id="sobre" class="section section-wrapper fade-in">
-    <div class="container content-box text-center">
-      <img src="midia/foto perfil.jpg" alt="Minha Foto" class="profile-img" width="150" />
-      <h2>Sobre mim</h2>
-      <p>Sou um editor de vídeo com experiência em Adobe Premiere, After Effects, Photoshop e Canva.</p>
-    </div>
-  </section>
+<div class="filter-buttons">
+  <button class="filter-btn active" data-filter="all">Todos</button>
+  <button class="filter-btn" data-filter="video">Vídeos</button>
+  <button class="filter-btn" data-filter="image">Imagens</button>
+  <button class="filter-btn" data-filter="animacao">Animação</button>
+</div>
 
-  <section id="projetos" class="section section-wrapper fade-in">
-    <div class="container content-box">
-      <h2 class="text-center">Meus Projetos</h2>
-      <ul class="nav nav-pills justify-content-center mb-4" id="project-tabs">
-        <li class="nav-item"><a class="nav-link active" href="#" data-category="all">Todos</a></li>
-        <li class="nav-item"><a class="nav-link" href="#" data-category="premiere">Premiere</a></li>
-        <li class="nav-item"><a class="nav-link" href="#" data-category="aftereffects">After Effects</a></li>
-        <li class="nav-item"><a class="nav-link" href="#" data-category="photoshop">Photoshop</a></li>
-        <li class="nav-item"><a class="nav-link" href="#" data-category="canva">Canva</a></li>
-      </ul>
-      <div id="project-grid" class="row justify-content-center"></div>
-    </div>
-  </section>  
+  <div id="projectGrid" class="project-grid"></div>
+</section>
 
-  <section id="contato" class="section section-wrapper fade-in">
-    <div class="container content-box text-center">
-      <h2>Contato</h2>
-      <p>Email: c.rodrigues.edu@gmail.com</p>
-      <p>Telefone: (41) 99959-2689</p>
-    </div>
-  </section>
+<div id="imageModal" class="image-modal">
+  <span class="close-modal">&times;</span>
+  <img class="modal-content" id="modalImage" alt="">
+</div>
 
-  <footer class="bg-dark text-center py-3">
-    <p>&copy; 2024 Meu Portfólio. Todos os direitos reservados.</p>
-  </footer>
-
-  <script src="js/script.js"></script>
+  <script src="./js/script.js"></script>
+  <footer style="text-align:center; margin-top:50px; padding:20px 0; color:gray;">
+  © 2025 Carlos Rodrigues – Todos os direitos reservados
+</footer>
 </body>
 </html>
