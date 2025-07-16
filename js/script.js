@@ -53,6 +53,20 @@ const projects = [
       title: 'Clipe cinematográfico moto',
       desc: 'Vídeo cinemático motocicleta'
     },
+    {
+      category: 'premiere',
+      type: 'video',
+      src: 'midia/Projeto Premiere/Video incorporadora.mp4',
+      title: 'Visita Incorporadora',
+      desc: 'Vídeo cinemático visita a incorporadora'
+    },
+    {
+      category: 'premiere',
+      type: 'video',
+      src: 'midia/Projeto Premiere/Afiliados.mp4',
+      title: 'VSL afiliados Investmoeny',
+      desc: 'VSL'
+    },
     // Vídeos YouTube
     {
       category: 'premiere',
@@ -105,6 +119,13 @@ const projects = [
     },
 
     // Vídeos After Effects
+    {
+  category: 'aftereffects',
+  type: 'animacao',
+  src: 'midia/Projeto After Effects/Criativo Frevetto.mov',
+  title: 'Sacados e Cedentes',
+  desc: 'Animação para telas de elevador'
+},
 {
   category: 'aftereffects',
   type: 'animacao',
@@ -118,6 +139,13 @@ const projects = [
   src: 'midia/Projeto After Effects/Intro chips ao shape.mp4',
   title: 'Intro Chips ao Shape',
   desc: 'Animação intro'
+},
+{
+  category: 'aftereffects',
+  type: 'animacao',
+  src: 'midia/Projeto After Effects/Vídeo para LP',
+  title: 'Dog Animation',
+  desc: 'Video para landing page'
 },
 {
   category: 'aftereffects',
@@ -216,94 +244,110 @@ const projects = [
 }
 ];
 
-function renderProjects(filter = "all") {
+let visibleProjects = 6; // Número inicial de projetos visíveis
+let currentFilter = "all"; // Filtro atual (todos)
+
+function renderProjects(filter = "all", limit = visibleProjects) {
+  currentFilter = filter;
   const grid = document.getElementById("projectGrid");
   grid.innerHTML = "";
 
-  projects.forEach((project) => {
-    if (filter === "all" || project.type === filter || project.category === filter) {
-      const card = document.createElement("div");
-      card.classList.add("project-card", project.type);
+  const filtered = projects.filter(project =>
+    filter === "all" || project.type === filter || project.category === filter
+  );
 
-if (project.type === 'video') {
-  const isYouTube = project.src.includes('youtube.com');
-  card.innerHTML = isYouTube
-    ? `
-      <iframe src="${project.src}" frameborder="0" allowfullscreen></iframe>
-      <h3>${project.title}</h3>
-      <p>${project.desc}</p>
-    `
-    : `
-      <video controls>
-        <source src="${project.src}" type="video/mp4">
-        Seu navegador não suporta vídeo.
-      </video>
-      <h3>${project.title}</h3>
-      <p>${project.desc}</p>
-    `;
-} else if (project.type === 'image') {
-  card.innerHTML = `
-    <img src="${project.src}" alt="${project.title}">
-    <h3>${project.title}</h3>
-    <p>${project.desc}</p>
-  `;
-} else if (project.type === 'animacao') {
-  card.innerHTML = `
-    <video controls>
-      <source src="${project.src}" type="video/mp4">
-      Seu navegador não suporta vídeo.
-    </video>
-    <h3>${project.title}</h3>
-    <p>${project.desc}</p>
-  `;
+  const sliced = filtered.slice(0, limit);
+
+  sliced.forEach((project) => {
+    const card = document.createElement("div");
+    card.classList.add("project-card", project.type);
+
+    if (project.type === 'video') {
+      const isYouTube = project.src.includes('youtube.com');
+      card.innerHTML = isYouTube
+        ? `<iframe src="${project.src}" frameborder="0" allowfullscreen></iframe>
+             <h3>${project.title}</h3>
+             <p>${project.desc}</p>`
+        : `<video controls>
+             <source src="${project.src}" type="video/mp4">
+             Seu navegador não suporta vídeo.
+           </video>
+           <h3>${project.title}</h3>
+           <p>${project.desc}</p>`;
+    } else if (project.type === 'image' || project.type === 'animacao') {
+      card.innerHTML = `
+        ${project.type === 'image'
+          ? `<img src="${project.src}" alt="${project.title}">`
+          : `<video controls>
+               <source src="${project.src}" type="video/mp4">
+               Seu navegador não suporta vídeo.
+             </video>`}
+        <h3>${project.title}</h3>
+        <p>${project.desc}</p>`;
+    }
+
+    grid.appendChild(card);
+  });
+
+  const verMaisBtn = document.getElementById("verMaisContainer");
+  if (filtered.length <= limit) {
+    verMaisBtn.style.display = "none";
+  } else {
+    verMaisBtn.style.display = "block";
+  }
 }
-      grid.appendChild(card);
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderProjects(currentFilter, visibleProjects);
+
+  // Botão "Ver Mais"
+  document.getElementById("verMaisBtn").addEventListener("click", () => {
+    visibleProjects += 6;
+    renderProjects(currentFilter, visibleProjects);
+  });
+
+  // Filtros
+  document.querySelectorAll('.filter-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const filter = button.getAttribute('data-filter');
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+      visibleProjects = 6;
+      renderProjects(filter, visibleProjects);
+    });
+  });
+
+  // Modal de imagem
+  document.addEventListener('click', (e) => {
+    const img = e.target;
+    if (img.tagName === 'IMG' && img.closest('.project-card')) {
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalImage');
+      modal.style.display = "block";
+      modalImg.src = img.src;
     }
   });
-}
 
-renderProjects();
-
-document.querySelectorAll('.filter-btn').forEach(button => {
-  button.addEventListener('click', () => {
-    const filter = button.getAttribute('data-filter');
-
-    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-    button.classList.add('active');
-
-    renderProjects(filter);
+  // Fechar modal
+  document.querySelector('.close-modal').addEventListener('click', () => {
+    document.getElementById('imageModal').style.display = "none";
   });
-});  
-// Delegação para abrir imagem em modal (funciona com elementos criados dinamicamente)
-document.addEventListener('click', (e) => {
-  const img = e.target;
-  if (img.tagName === 'IMG' && img.closest('.project-card')) {
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImage');
-    modal.style.display = "block";
-    modalImg.src = img.src;
-  }
-});
 
-document.querySelector('.close-modal').addEventListener('click', () => {
-  document.getElementById('imageModal').style.display = "none";
-});
-
-document.getElementById('imageModal').addEventListener('click', (e) => {
-  if (e.target.id === 'imageModal') {
-    e.currentTarget.style.display = "none";
-  }
-
-});
-
-document.querySelectorAll('.nav-link').forEach(link => {
-  link.addEventListener('click', (e) => {
-    const targetId = link.getAttribute('href');
-
-    if (targetId.startsWith('#')) {
-      e.preventDefault();
-      const section = document.querySelector(targetId);
-      if (section) section.scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('imageModal').addEventListener('click', (e) => {
+    if (e.target.id === 'imageModal') {
+      e.currentTarget.style.display = "none";
     }
+  });
+
+  // Scroll suave nos links do menu
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const targetId = link.getAttribute('href');
+      if (targetId.startsWith('#')) {
+        e.preventDefault();
+        const section = document.querySelector(targetId);
+        if (section) section.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
   });
 });

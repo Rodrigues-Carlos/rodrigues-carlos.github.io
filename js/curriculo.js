@@ -47,4 +47,5 @@ function draw() {
     ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
     ctx.fill();
   });
+  
 }
