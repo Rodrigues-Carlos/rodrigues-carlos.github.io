@@ -122,7 +122,7 @@ const projects = [
     {
   category: 'aftereffects',
   type: 'animacao',
-  src: 'midia/Projeto After Effects/Criativo Frevetto.mov',
+  src: 'midia/Projeto After Effects/Criativo Frevetto.mp4',
   title: 'Sacados e Cedentes',
   desc: 'Animação para telas de elevador'
 },
@@ -143,7 +143,7 @@ const projects = [
 {
   category: 'aftereffects',
   type: 'animacao',
-  src: 'midia/Projeto After Effects/Vídeo para LP',
+  src: 'midia/Projeto After Effects/Vídeo para LP.mp4',
   title: 'Dog Animation',
   desc: 'Video para landing page'
 },
@@ -285,6 +285,24 @@ function renderProjects(filter = "all", limit = visibleProjects) {
         <h3>${project.title}</h3>
         <p>${project.desc}</p>`;
     }
+card.querySelectorAll("video").forEach(video => {
+  video.addEventListener("loadedmetadata", () => {
+    const isPortrait = video.videoHeight > video.videoWidth;
+    video.classList.add(isPortrait ? "portrait" : "landscape");
+  });
+
+  video.addEventListener("play", () => {
+    card.classList.add("video-playing");
+  });
+
+  video.addEventListener("pause", () => {
+    card.classList.remove("video-playing");
+  });
+
+  video.addEventListener("ended", () => {
+    card.classList.remove("video-playing");
+  });
+});
 
     grid.appendChild(card);
   });

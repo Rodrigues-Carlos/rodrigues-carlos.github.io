@@ -307,3 +307,53 @@ body {
   color: black;
   transform: scale(1.05);
 }
+
+.footer {
+  background-color: #0a0a0a;
+  padding: 40px 20px 20px;
+  text-align: center;
+  color: #888;
+  margin-top: 60px;
+}
+
+.footer-contact {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 15px;
+}
+
+.footer-contact a {
+  color: #66bb6a;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+.footer-contact a:hover {
+  color: white;
+  transform: scale(1.05);
+}
+
+footer p {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.project-card video {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: all 0.3s ease;
+}
+
+.project-card.video-playing video.landscape {
+  object-fit: cover;
+}
+
+.project-card.video-playing video.portrait {
+  object-fit: contain;
+  background-color: black;
+}

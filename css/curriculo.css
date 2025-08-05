@@ -420,3 +420,32 @@ footer a {
 html {
   scroll-behavior: smooth;
 }
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+}
+
+.label-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.skill-bar img {
+  width: 20px;
+  height: 20px;
+}
+
+.skill-bar .label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (max-width: 800px) {
+  .skills-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
